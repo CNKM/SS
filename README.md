@@ -1,5 +1,4 @@
-常用的 buntu Shell Bash 脚本 主要面向buntu 系列衍生版本的一些工具的配置脚本
-Linux Shell Bash Script
+buntu Shell Bash 常用脚本 
 说明：
 主要以Mint为主，其他衍生版本自行斟酌。
 1.8 更新
