@@ -1,0 +1,2 @@
+#mint fix smb share
+sudo smbpasswd -a k
