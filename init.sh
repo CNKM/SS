@@ -425,19 +425,12 @@ function SetAlias
 
 function BeautifySystemIcon
 {
-	sudo add-apt-repository ppa:oranchelo/oranchelo-icon-theme -y
-	sudo add-apt-repository ppa:ravefinity-project/ppa -y
-	sudo add-apt-repository ppa:noobslab/icons -y
-	sudo add-apt-repository ppa:noobslab/icons2 -y
-	sudo apt-get install xenlism-wildfire-icon-theme -y
-	sudo add-apt-repository ppa:moka/daily -y
+	
 	sudo apt-add-repository ppa:numix/ppa -y
-	sudo add-apt-repository ppa:snwh/pulp -y
 	sudo add-apt-repository ppa:papirus/papirus -y
 	sudo apt-key adv --keyserver keys.gnupg.net --recv-keys 90127F5B
-	echo "deb http://downloads.sourceforge.net/project/xenlism-wildfire/repo deb/" | sudo tee -a /etc/apt/sources.list
 	sudo apt-get update
-	sudo apt-get install faenza-icon-theme oranchelo-icon-theme obsidian-1-icons shadow-icon-theme square-icons dalisha-icons uniform-icons moka-icon-theme numix-icon-theme-circle paper-icon-theme papirus-icon-theme
+	sudo apt-get install faenza-icon-theme moka-icon-theme numix-icon-theme-circle
 }
 
 function localChinesWebTools
