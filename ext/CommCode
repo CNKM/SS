@@ -1,2 +1,52 @@
 #mint fix smb share
 sudo smbpasswd -a k
+
+function Installshadowsocks
+{
+	sudo add-apt-repository ppa:hzwhuang/ss-qt5
+	sudo apt-get update
+	sudo apt-get install shadowsocks-qt5
+	proxyaddress='127.0.0.1'
+	proxyport=54322
+	if test -z  "./ps" ;then
+		rm  ./ps
+	fi
+	if test -z  "./pp" ;then
+		rm  ./pp
+	fi
+
+	if test -z  "./pt" ;then
+		rm  ./pt
+	fi
+	echo "#!/bin/bash" >./ps
+	echo  "gsettings set org.gnome.system.proxy mode 'manual' " >> ./ps
+	echo  "gsettings set org.gnome.system.proxy.http host "$proxyaddress >> ./ps
+	echo  "gsettings set org.gnome.system.proxy.http port  "$proxyport >> ./ps
+	echo  "gsettings set org.gnome.system.proxy.https host " $proxyaddress>> ./ps
+	echo  "gsettings set org.gnome.system.proxy.https port "$proxyport >> ./ps
+	echo  "gsettings set org.gnome.system.proxy.ftp host "$proxyaddress >>./ps
+	echo  "gsettings set org.gnome.system.proxy.ftp port "$proxyport  >>./ps
+	echo "gsettings set org.gnome.system.proxy.socks host "$proxyaddress >>./ps
+	echo "gsettings set org.gnome.system.proxy.socks port "$proxyport  >>./ps
+	echo "echo \"已启动代理:代理地址为:127.0.0.1  端口为:54322\" " >>./ps
+	##
+
+	echo  "gsettings set org.gnome.system.proxy mode 'none' " >./pp
+	echo "echo \"恢复直接连接\" " >>./pp
+	
+	echo "#!/bin/bash" >./pt
+	echo "mode=\$(gsettings get org.gnome.system.proxy mode)" >>./pt
+	echo "host=\$(gsettings get org.gnome.system.proxy.http host)" >>./pt
+	echo "port=\$(gsettings get org.gnome.system.proxy.http port)" >>./pt
+	echo "none=\\'none\\'"  >>./pt
+	echo "if  test \"\$mode\" = \"\$none\" "  >>./pt
+	echo "then"  >>./pt
+	echo "	echo \"当前代理模式为:\$mode \"" >>./pt
+	echo "else"  >>./pt
+	echo "	echo \"当前代理模式为:\$mode，地址为:127.0.0.1  端口为:54322\" "  >>./pt
+	echo "fi"  >>./pt
+	
+	sudo chmod  a+x  ./ps
+	sudo chmod  a+x  ./pp
+	sudo chmod  a+x  ./pt
+}
