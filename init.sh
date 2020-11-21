@@ -1,20 +1,30 @@
 #!/bin/bash
 outinfo=""
+errorinfo="";
 function Fn_Printinfo()
 {
-   echo -e "\033[32m"$outinfo"...\033[0m"
+	echo -e "\033[32m"$outinfo"\033[0m"
 }
 
-function Fn_DoProcess()
+function Fn_DoProcessInfo()
 {
-	outinfo ="开始执行"
-	Fn_Printinfo
+	echo -e "\033[32m"正在执行$outinfo操作,请稍候..."\033[0m"	
 }
 
-function Fn_ComplateProcess()
+function Fn_ComplateProcessinfo()
 {
-	outinfo ="执行结束"
-	Fn_Printinfo;
+	echo -e "\033[32m"完成$outinfo操作,感谢使用!"\033[0m"	
+}
+
+function Fn_ErrorProcessInfo()
+{
+	
+	echo -e  "\033[31m$errorinfo\033[0m"
+}
+
+function Fn_Readme()
+{
+	cat ./README.md
 }
 
 function Fn_RefashBaseSource()
@@ -31,7 +41,7 @@ function ShowTilte
 	echo -e "\033[32m*         git https://github.com/CNKM/SS                        *\033[0m"
 	echo -e "\033[32m*       邮箱地址：                                               *\033[0m"
 	echo -e "\033[32m*          km.liuz@qq.com                                        *\033[0m"
-	echo -e "\033[32m*       版本: V1.8 				                                 *\033[0m"
+	echo -e "\033[32m*       版本: V2.0 				                                 *\033[0m"
 	echo -e "\033[32m******************************************************************\033[0m"
 }
 
@@ -54,12 +64,13 @@ MenuItems=(
 "字体美化"
 "图标美化"
 "自定义组合"
+"说明"
 "退出"
 )
 
 function Fn_InstallBase()
 {
-	sudo apt-get install git uget aria2 htop guake  fortunes-zh network-manager-* numlockx build-essential libgtk2.0-dev  variety  xcompmgr 	
+	sudo apt-get install git screenfetch neofetch uget cmatrix oneko aria2 htop guake  fortunes-zh network-manager-* numlockx build-essential libgtk2.0-dev  variety  xcompmgr 	
 }
 function Fn_InstallV2ray()
 {
@@ -106,8 +117,19 @@ function Fn_InstallDonet()
 
 function Fn_InstallJDK()
 {
-	echo "选择要安装设置的JDK安装包 :" 
-			select jdkfn in ${filelist[@]}
+	echo  -e "\033[31m"
+	filelist=`ls jdk*`
+	if test -z "$filelist"
+	then
+		echo -e " 未找到相应的JDK文件；请在调用本脚本后加入需要安装配置的JDK包名"
+		echo "如： ./initjdk jdk-8u91-linux-x64.tar.gz"
+		echo "还未下载请到下列地址进行下载  http://www.oracle.com/technetwork/java/javase/downloads/index.html"
+		echo  -e "选择下载 Linux tar.gz 版本 "
+		echo -e "\033[0m "
+	else
+		echo -e "\033[0m "
+		echo "选择要安装设置的JDK安装包 :" 
+		select jdkfn in ${filelist[@]}
 			do
 				sudo rm -fR ./tempjvm
 				sudo mkdir ./tempjvm
@@ -133,12 +155,13 @@ function Fn_InstallJDK()
 				else
 					echo  -e "\033[31m已经设置过环境变量，手动调整 ~/.bashrc 文件 \033[0m"
 				fi
-				RefashBash
+				Fn_RefashBaseSource
 				echo $jdkn
 				java -version
 				sudo rm -fR ./tempjvm
 				break
 			done
+	fi
 }
 
 
@@ -183,7 +206,7 @@ function Fn_SetAlias()
 	if test -z "$N8" ;then
     	    echo "alias version='lsb_release -a && uname -a && cat /proc/version' ">> ~/.bashrc
     	fi
-    RefashBash
+    Fn_RefashBaseSource
 }
 function Fn_SetBashEditor()
 {
@@ -260,8 +283,6 @@ function Fn_NiceIcon()
 	sudo apt-get install faenza-icon-theme moka-icon-theme numix-icon-theme-circle
 }
 
-
-
 while [[ 1 ]]; do
 	#statements
 	clear
@@ -270,73 +291,79 @@ while [[ 1 ]]; do
 	do
 		break
 	done
-
+	 outinfo=$MenuItem
+	 Fn_DoProcessInfo
 	case $MenuItem in 
 		${MenuItems[0]})
 			Fn_InstallBase
-			exit;;
+			break;;
 		${MenuItems[1]})
 			Fn_InstallV2ray
-		 	exit;;
+		 	break;;
 		${MenuItems[2]})
 			Fn_InstallGC
-		 	exit;; 	
+		 	break;; 	
 		${MenuItems[3]})
 			Fn_InstallVsCode
-		 	exit;;
+		 	break;;
 		${MenuItems[4]})
 			Fn_InstallDonet
-		 	exit;;
+		 	break;;
 		${MenuItems[5]})
 			Fn_InstallJDK
-		 	exit;;
+		 	break;;
 		${MenuItems[6]})
 			Fn_SetAlias
-		 	exit;; 	
+		 	break;; 	
 		${MenuItems[7]})
 			Fn_SetBashEditor
-		 	exit;;
+		 	break;;
 		${MenuItems[8]})
 			Fn_LocalFireFox
-		 	exit;;
+		 	break;;
 		${MenuItems[9]})
 			Fn_LocalChrome
-		 	exit;;
+		 	break;;
 		${MenuItems[10]})
 			Fn_LocalMint
-		 	exit;; 	
+		 	break;; 	
 		${MenuItems[11]})
 			Fn_SetLubuntu
-		 	exit;;
+		 	break;;
 		${MenuItems[12]})
 			Fn_SetGitUser
-		 	exit;;
+		 	break;;
 		${MenuItems[13]})
 			Fn_ClearGitHistory
-		 	exit;;
+		 	break;;
 		${MenuItems[14]})
 			Fn_NiceFont
-		 	exit;; 	
+		 	break;; 	
 		${MenuItems[15]})
 			Fn_NiceIcon
-		 	exit;;
-    	 ${MenuItems[16]})
+		 	break;;
+    	${MenuItems[16]})
 			Fn_InstallBase
 			Fn_InstallV2ray
 			Fn_LocalFireFox
 			Fn_LocalChrome
 			Fn_LocalMint
-		 	exit;;
+		 	break;;
+		${MenuItems[17]})
+			Fn_Readme
+		 	break;;
 		#新增功能加这里
 		#${MenuItems[${#MenuItems[@]}-1]})
 			
-		 	#exit;;
+		 	#break;;
 		${MenuItems[${#MenuItems[@]}-1]})
-			echo "谢谢使用！"
-		 	exit;;
+		 	break;;
 		*)
-			echo -e  "\033[31m无效的输入选择 $REPLY,按任意键重新选择\033[0m"
+			errorinfo=无效的输入选择$REPLY,按任意键重新选择
+			Fn_ErrorProcessInfo
 			read
+
 	esac
 
 done
+Fn_ComplateProcessinfo
