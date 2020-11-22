@@ -64,6 +64,7 @@ MenuItems=(
 "字体美化"
 "图标美化"
 "自定义组合"
+"安装Tux"
 "说明"
 "退出"
 )
@@ -163,6 +164,11 @@ function Fn_InstallJDK()
 				break
 			done
 	fi
+}
+
+function Fn_InstallTux
+{
+	sudo apt-get install tuxmath tuxpaint tuxtype
 }
 
 
@@ -351,11 +357,15 @@ while [[ 1 ]]; do
 			Fn_LocalMint
 		 	break;;
 		${MenuItems[17]})
-			Fn_Readme
+			Fn_InstallTux
 		 	break;;
 		#新增功能加这里
-		#${MenuItems[${#MenuItems[@]}-1]})
-			
+		#${MenuItems[操作项目索引])
+		#Fn_Dosomething
+		#break;;
+		${MenuItems[${#MenuItems[@]}-2]})
+			Fn_Readme
+		 	break;;	
 		 	#break;;
 		${MenuItems[${#MenuItems[@]}-1]})
 		 	break;;
