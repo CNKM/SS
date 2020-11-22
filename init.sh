@@ -70,7 +70,7 @@ MenuItems=(
 
 function Fn_InstallBase()
 {
-	sudo apt-get install git screenfetch neofetch uget cmatrix oneko aria2 htop guake  fortunes-zh network-manager-* numlockx build-essential libgtk2.0-dev  variety  xcompmgr 	
+	sudo apt-get install git screenfetch neofetch uget cmatrix oneko aria2 htop guake  fortunes-zh network-manager-* numlockx build-essential libgtk2.0-dev  variety  xcompmgr  sublime-text
 }
 function Fn_InstallV2ray()
 {
@@ -85,6 +85,7 @@ function Fn_InstallV2ray()
 	sudo apt update
 	# install V2RayA
 	sudo apt install v2raya
+	systemctl enable v2ray
 }
 function Fn_InstallGC()
 {
