@@ -38,10 +38,10 @@ function ShowTilte
 	echo -e "\033[32m******************************************************************\033[0m"
 	echo -e "\033[32m*       buntu 配置工具 Created by:PeerLessSoul                   *\033[0m"
 	echo -e "\033[32m*       源码地址：                                               *\033[0m"
-	echo -e "\033[32m*         git https://github.com/CNKM/SS                        *\033[0m"
+	echo -e "\033[32m*          git https://github.com/CNKM/SS                        *\033[0m"
 	echo -e "\033[32m*       邮箱地址：                                               *\033[0m"
 	echo -e "\033[32m*          km.liuz@qq.com                                        *\033[0m"
-	echo -e "\033[32m*       版本: V2.0 				                                 *\033[0m"
+	echo -e "\033[32m*       版本: V2.0                                               *\033[0m"
 	echo -e "\033[32m******************************************************************\033[0m"
 }
 
