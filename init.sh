@@ -215,7 +215,7 @@ function Fn_SetAlias()
 
     	N8=$(grep "alias  version" ~/.bashrc) 
 	if test -z "$N8" ;then
-    	    echo "alias version='lsb_release -a && uname -a && cat /proc/version' ">> ~/.bashrc
+    	    echo "alias version='lsb_release -a && uname -a && cat /proc/version && neofetch' ">> ~/.bashrc
     	fi
     Fn_RefashBaseSource
 }
