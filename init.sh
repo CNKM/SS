@@ -135,7 +135,7 @@ function Fn_InstallJDK()
 			do
 				sudo rm -fR ./tempjvm
 				sudo mkdir ./tempjvm
-				tar -zxvf $jdkfn -C ./tempjvm
+				sudo tar -zxvf $jdkfn -C ./tempjvm
 				jdkn=`ls ./tempjvm/`
 				jdkpath=/usr/lib/jvm/${jdkn}
 				echo $jdkpath
@@ -147,18 +147,21 @@ function Fn_InstallJDK()
 				HasSeted=$(grep "设定Java 环境" ~/.bashrc) 
 				if test -z "$HasSeted" ;then
 					echo  -e "\033[32m从未设置过Java环境变量，正在设置\033[0m"
-					echo "#设定Java 环境" >> ~/.bashrc
-					echo "export JAVA_HOME="${jdkpath} >> ~/.bashrc
-					echo "export JAVA_HOME="${jdkpath} >> ~/.bashrc
-					echo "export JRE_HOME=${JAVA_HOME}/jre" >> ~/.bashrc
-					echo 'export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH' >> ~/.bashrc
-					echo 'export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH' >> ~/.bashrc
+					echo "#设定Java 环境" > ~/.bashrc
+					echo "export JAVA_HOME="${jdkpath} > ~/.bashrc
+					echo "export JRE_HOME=${JAVA_HOME}/jre" > ~/.bashrc
+					echo 'export CLASSPATH=.:$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH' > ~/.bashrc
+					echo 'export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH' > ~/.bashrc
 					echo "" >> ~/.bashrc
 				else
 					echo  -e "\033[31m已经设置过环境变量，手动调整 ~/.bashrc 文件 \033[0m"
 				fi
+
 				Fn_RefashBaseSource
 				echo $jdkn
+				sudo update-alternatives --install /usr/bin/javac javac ${JAVA_HOME}/bin/javac 1071
+				sudo update-alternatives --install /usr/bin/java java ${JAVA_HOME}/bin/java 1071
+				update-alternatives --config java
 				java -version
 				sudo rm -fR ./tempjvm
 				break
