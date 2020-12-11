@@ -1,0 +1,28 @@
+
+#!/bin/sh
+parm=$1
+if test -z "$parm"
+then
+	echo "参数  on / off 不带参数默认恢复直接链接"
+	echo "如:ProxyAuto on 或者 ProxyAuto off"
+	echo "代理设置为 直接连接"
+	gsettings set org.gnome.system.proxy mode 'none' 
+	exit 0;
+else
+	if [ "$parm" == "on" ]; then
+	  echo "代理设置为 127.0.0.1:1080 "
+			gsettings set org.gnome.system.proxy mode 'manual' 
+			gsettings set org.gnome.system.proxy.http host '127.0.0.1'
+			gsettings set org.gnome.system.proxy.http port 1080
+			gsettings set org.gnome.system.proxy.https host '127.0.0.1'
+			gsettings set org.gnome.system.proxy.https port 1080
+			gsettings set org.gnome.system.proxy.ftp host '127.0.0.1'
+			gsettings set org.gnome.system.proxy.ftp port 1080 
+			gsettings set org.gnome.system.proxy.socks host '127.0.0.1'
+			gsettings set org.gnome.system.proxy.socks port  1080
+        else
+        echo "代理设置为 直接连接"
+	gsettings set org.gnome.system.proxy mode 'none' 
+	fi
+
+fi
