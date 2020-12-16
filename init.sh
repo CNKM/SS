@@ -56,20 +56,21 @@ MenuItems=(
 "安装JDK环境"
 "设置alias"
 "设置Bash编辑器"
-"汉化(浏览器FF)"
-"汉化(浏览器Chrome)"
+"汉化(FireFox)"
+"汉化(Chrome)"
 "汉化Mint"
 "Lubunt环境设置"
 "设置Git帐号"
 "清理Git历史"
 "字体美化"
 "图标美化"
-"自定义组合"
 "安装Tux"
 "安装WPS字体"
 "桌面默认值恢复"
 "设置aria2"
 "配置python"
+"安装ccal"
+"自定义组合"
 "说明"
 "退出"
 )
@@ -177,7 +178,7 @@ function Fn_InstallJDK()
 
 function Fn_InstallTux
 {
-	sudo apt-get install tuxmath tuxpaint tuxtype
+	sudo apt-get install tuxmath tuxpaint tuxtype bovo kpat
 }
 
 function Fn_InstallWPSFont
@@ -193,6 +194,16 @@ function Fn_InstallWPSFont
 	sudo mkfontdir /usr/share/fonts/wps-font-symbols/
 	sudo fc-cache /usr/share/fonts/wps-font-symbols/
 	sudo rm  -fr ./wps-font-symbols
+}
+function Fn_Installccal
+{
+	wget http://ccal.chinesebay.com/ccal/ccal-2.5.3.tar.gz && tar -zxvf ccal-2.5.3.tar.gz
+	cd ccal-2.5.3
+	sudo make && sudo make install
+	ccal -u 06 1985
+	cd ..
+	rm ./ccal-2.5.3.tar.gz -fr
+	rm ./ccal-2.5.3 -rf
 }
 
 function Fn_SetDefaultDesk()
@@ -415,32 +426,35 @@ while [[ 1 ]]; do
 		${MenuItems[15]})
 			Fn_NiceIcon
 		 	break;;
-    	${MenuItems[16]})
+		${MenuItems[16]})
+			Fn_InstallTux
+		 	break;;
+		${MenuItems[17]})
+			Fn_InstallWPSFont
+		 	break;;
+		${MenuItems[18]})
+			FN_SetAria2
+		 	break;;
+		${MenuItems[19]})
+			Fn_SetDefaultDesk
+			break;;
+		${MenuItems[20]})
+			Fn_SetPython
+			break;;
+		${MenuItems[21]})
+			Fn_Installccal
+			break;;
+		#新增功能加这里
+		#${MenuItems[操作项目索引])
+		#Fn_Dosomething
+		#break;;
+		${MenuItems[${#MenuItems[@]}-3]})
 			Fn_InstallBase
 			Fn_InstallV2ray
 			Fn_LocalFireFox
 			Fn_LocalChrome
 			Fn_LocalMint
 		 	break;;
-		${MenuItems[17]})
-			Fn_InstallTux
-		 	break;;
-		${MenuItems[18]})
-			Fn_InstallWPSFont
-		 	break;;
-		${MenuItems[19]})
-			FN_SetAria2
-		 	break;;
-		${MenuItems[20]})
-			Fn_SetDefaultDesk
-			break;;
-		${MenuItems[21]})
-			Fn_SetPython
-			break;;
-		#新增功能加这里
-		#${MenuItems[操作项目索引])
-		#Fn_Dosomething
-		#break;;
 		${MenuItems[${#MenuItems[@]}-2]})
 			Fn_Readme
 		 	break;;	
