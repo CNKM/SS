@@ -78,7 +78,7 @@ MenuItems=(
 
 function Fn_InstallBase()
 {
-	sudo apt-get install git screenfetch neofetch uget cmatrix oneko aria2 htop guake  fortunes-zh network-manager-* numlockx build-essential libgtk2.0-dev  variety  xcompmgr  sublime-text libjpeg62:i386
+	sudo apt-get install git screenfetch neofetch uget cmatrix oneko aria2 htop guake  fortunes-zh network-manager-* numlockx build-essential libgtk2.0-dev  variety  xcompmgr  sublime-text libjpeg62
 }
 function Fn_InstallV2ray()
 {
