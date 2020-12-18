@@ -179,7 +179,7 @@ function Fn_InstallJDK()
 
 function Fn_InstallTux
 {
-	sudo apt-get install tuxmath tuxpaint tuxtype bovo kpat
+	sudo apt-get install tuxmath tuxpaint tuxtype bovo kpat kreversi kmahjongg
 }
 
 function Fn_InstallWPSFont
