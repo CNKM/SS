@@ -42,7 +42,7 @@ function ShowTilte
 	echo -e "\033[32m*          git https://github.com/CNKM/SS                        *\033[0m"
 	echo -e "\033[32m*       邮箱地址：                                               *\033[0m"
 	echo -e "\033[32m*          km.liuz@qq.com                                        *\033[0m"
-	echo -e "\033[32m*       版本: V2.2                                              *\033[0m"
+	echo -e "\033[32m*       版本: V2.3                                             *\033[0m"
 	echo -e "\033[32m******************************************************************\033[0m"
 }
 
@@ -70,6 +70,7 @@ MenuItems=(
 "设置aria2"
 "配置python"
 "安装ccal"
+"安装Wechat"
 "自定义组合"
 "说明"
 "退出"
@@ -77,7 +78,7 @@ MenuItems=(
 
 function Fn_InstallBase()
 {
-	sudo apt-get install git screenfetch neofetch uget cmatrix oneko aria2 htop guake  fortunes-zh network-manager-* numlockx build-essential libgtk2.0-dev  variety  xcompmgr  sublime-text
+	sudo apt-get install git screenfetch neofetch uget cmatrix oneko aria2 htop guake  fortunes-zh network-manager-* numlockx build-essential libgtk2.0-dev  variety  xcompmgr  sublime-text libjpeg62:i386
 }
 function Fn_InstallV2ray()
 {
@@ -204,6 +205,20 @@ function Fn_Installccal
 	cd ..
 	rm ./ccal-2.5.3.tar.gz -fr
 	rm ./ccal-2.5.3 -rf
+}
+function Fn_InstallWeChat
+{
+	wget -O- https://deepin-wine.i-m.dev/setup.sh | sh
+	sudo apt-get install com.qq.weixin.deepin
+	echo -e "\033[32mdeepin 包\033[0m"
+	echo -e "\033[32m微信 com.qq.weixin.deepin\033[0m"
+	echo -e "\033[32mQQ com.qq.im.deepin\033[0m"
+	echo -e "\033[32m钉钉 com.dingtalk.deepin\033[0m"
+	echo -e "\033[32m阿里旺旺 com.taobao.wangwang.deepin\033[0m"
+	echo -e "\033[32m阿里旺旺 com.taobao.wangwang.deepin\033[0m"
+	echo -e "\033[32mQQ音乐 com.qq.music.deepin\033[0m"
+	echo -e "\033[32mQQ视频 com.qq.video.deepin\033[0m"
+	echo -e "\033[32m爱奇艺 com.iqiyi.deepin\033[0m"
 }
 
 function Fn_SetDefaultDesk()
@@ -443,6 +458,9 @@ while [[ 1 ]]; do
 			break;;
 		${MenuItems[21]})
 			Fn_Installccal
+			break;;
+		${MenuItems[22]})
+			Fn_InstallWeChat
 			break;;
 		#新增功能加这里
 		#${MenuItems[操作项目索引])
