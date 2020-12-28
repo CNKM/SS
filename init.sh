@@ -228,54 +228,72 @@ function Fn_SetDefaultDesk()
 
 function Fn_SetAlias()
 {
+	sed -i '/alias notepad=/d' ~/.bashrc >> ~/.bashrc ;
+	sed -i '/alias rb=/d' ~/.bashrc >> ~/.bashrc ;
+	sed -i '/alias suin=/d' ~/.bashrc >> ~/.bashrc;
+	sed -i '/alias suun=/d' ~/.bashrc >> ~/.bashrc ;
+	sed -i '/alias suup/d' ~/.bashrc >> ~/.bashrc;
+	sed -i '/alias sucls/d' ~/.bashrc >> ~/.bashrc;
+	sed -i '/alias bye/d' ~/.bashrc >> ~/.bashrc ;
+	sed -i '/alias version/d' ~/.bashrc >> ~/.bashrc ;
+	sed -i '/alias untar/d' ~/.bashrc >> ~/.bashrc ;
+	sed -i '/alias dr/d' ~/.bashrc >> ~/.bashrc ;
+
 	N1=$(grep "alias notepad" ~/.bashrc) 
 	if test -z "$N1" ;then
-    	    echo "alias notepad='subl'" >> ~/.bashrc
+    	echo "alias notepad='subl'" >> ~/.bashrc
     fi
 
 	N2=$(grep "alias rb=" ~/.bashrc) 
 	if test -z "$N2" ;then
-    	    echo "alias rb='reboot'" >> ~/.bashrc
+    	echo "alias rb='reboot'" >> ~/.bashrc
     fi
 
     N3=$(grep "alias suin=" ~/.bashrc) 
 	if test -z "$N3" ;then
-    	    echo "alias suin='sudo apt-get install '" >> ~/.bashrc
+    	echo "alias suin='sudo apt-get install '" >> ~/.bashrc
     fi
 
     N4=$(grep "alias suun=" ~/.bashrc) 
 	if test -z "$N4" ;then
-    	    echo "alias suun='sudo apt-get  remove '">> ~/.bashrc
-    	fi
+		
+    	echo "alias suun='sudo apt-get  remove '">> ~/.bashrc
+    fi
 
     N5=$(grep "alias suup" ~/.bashrc) 
 	if test -z "$N5" ;then
-    	    echo "alias suup='sudo apt-get update && sudo apt-get upgrade'" >> ~/.bashrc
+		
+    	echo "alias suup='sudo apt-get update && sudo apt-get upgrade'" >> ~/.bashrc
     fi
 
     N6=$(grep "alias sucls" ~/.bashrc) 
 	if test -z "$N6" ;then
-    	    echo "alias sucls='sudo apt-get autoclean && sudo apt-get autoremove'">> ~/.bashrc
+		
+    	echo "alias sucls='sudo apt-get autoclean && sudo apt-get autoremove'">> ~/.bashrc
     fi
 
     N7=$(grep "alias bye" ~/.bashrc) 
 	if test -z "$N7" ;then
-    	    echo "alias bye='shutdown  now'">> ~/.bashrc
+		
+    	echo "alias bye='shutdown  now'">> ~/.bashrc
     fi
 
     N8=$(grep "alias version" ~/.bashrc) 
 	if test -z "$N8" ;then
-    	    echo "alias version='lsb_release -a && uname -a && cat /proc/version && neofetch'">> ~/.bashrc
+		
+    	echo "alias version='lsb_release -a && uname -a && cat /proc/version && neofetch'">> ~/.bashrc
     fi
 
     N9=$(grep "alias untar" ~/.bashrc) 
 	if test -z "$N9" ;then
-    	    echo "alias untar='tar -zxvf'">> ~/.bashrc
+		
+    	echo "alias untar='tar -zxvf'">> ~/.bashrc
     fi
 
     N10=$(grep "alias dr" ~/.bashrc) 
 	if test -z "$N10" ;then
-    	    echo "alias dr='less -N '">> ~/.bashrc
+		
+    	echo "alias dr='less -N '">> ~/.bashrc
     fi
 
     Fn_RefashBaseSource
