@@ -238,6 +238,7 @@ function Fn_SetAlias()
 	sed -i '/alias version/d' ~/.bashrc >> ~/.bashrc ;
 	sed -i '/alias untar/d' ~/.bashrc >> ~/.bashrc ;
 	sed -i '/alias dr/d' ~/.bashrc >> ~/.bashrc ;
+	sed -i '/alias dl/d' ~/.bashrc >> ~/.bashrc ;
 
 	N1=$(grep "alias notepad" ~/.bashrc) 
 	if test -z "$N1" ;then
@@ -294,6 +295,12 @@ function Fn_SetAlias()
 	if test -z "$N10" ;then
 		
     	echo "alias dr='less -N '">> ~/.bashrc
+    fi
+
+    N10=$(grep "alias dl" ~/.bashrc) 
+	if test -z "$N11" ;then
+		
+    	echo "alias dl='aria2c -c -s 100 '">> ~/.bashrc
     fi
 
     Fn_RefashBaseSource
