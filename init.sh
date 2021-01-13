@@ -71,6 +71,7 @@ MenuItems=(
 "配置python"
 "安装ccal"
 "安装Wechat"
+"安装MEdge"
 "自定义组合"
 "说明"
 "退出"
@@ -221,6 +222,17 @@ function Fn_InstallWeChat
 	echo -e "\033[32m爱奇艺 com.iqiyi.deepin\033[0m"
 }
 
+function FN_InstallEdge
+{
+		## Setup
+	curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+	sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/
+	sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/edge stable main" > /etc/apt/sources.list.d/microsoft-edge-dev.list'
+	sudo rm microsoft.gpg
+	## Install
+	sudo apt update
+	sudo apt install microsoft-edge-dev
+}
 function Fn_SetDefaultDesk()
 {
 	sudo dconf reset -f /
@@ -486,6 +498,9 @@ while [[ 1 ]]; do
 			break;;
 		${MenuItems[22]})
 			Fn_InstallWeChat
+			break;;
+		${MenuItems[23]})
+			FN_InstallEdge
 			break;;
 		#新增功能加这里
 		#${MenuItems[操作项目索引])
