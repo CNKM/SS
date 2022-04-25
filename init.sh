@@ -23,6 +23,8 @@ function Fn_ErrorProcessInfo()
 	echo -e  "\033[31m$errorinfo\033[0m"
 }
 
+
+
 function Fn_Readme()
 {
 	cat ./README.md
@@ -42,7 +44,7 @@ function ShowTilte
 	echo -e "\033[32m*          git https://github.com/CNKM/SS                        *\033[0m"
 	echo -e "\033[32m*       邮箱地址：                                               *\033[0m"
 	echo -e "\033[32m*          km.liuz@qq.com                                        *\033[0m"
-	echo -e "\033[32m*       版本: V2.3                                             *\033[0m"
+	echo -e "\033[32m*       版本: V2.4                                             *\033[0m"
 	echo -e "\033[32m******************************************************************\033[0m"
 }
 
@@ -83,18 +85,16 @@ function Fn_InstallBase()
 }
 function Fn_InstallV2ray()
 {
-	# download script
-    curl -O https://cdn.jsdelivr.net/gh/v2rayA/v2rayA@master/install/go.sh
-   # install v2ray-core from jsdelivr
-    sudo bash go.sh
-	# add public key
-	wget -qO - https://raw.fastgit.org/v2rayA/v2raya-apt/master/key/public-key.asc | sudo apt-key add -
-	# add V2RayA's repository
-	echo "deb https://raw.fastgit.org/v2rayA/v2raya-apt/master/ v2raya main" | sudo tee /etc/apt/sources.list.d/v2raya.list
+
+	curl -Ls https://mirrors.v2raya.org/go.sh | sudo bash
+	sudo systemctl disable v2ray --now
+	systemctl enable v2raya.service
+	wget -qO - https://apt.v2raya.mzz.pub/key/public-key.asc | sudo tee /etc/apt/trusted.gpg.d/v2raya.asc
+	echo "deb https://apt.v2raya.mzz.pub/ v2raya main" | sudo tee /etc/apt/sources.list.d/v2raya.list
 	sudo apt update
-	# install V2RayA
 	sudo apt install v2raya
-	systemctl enable v2ray
+	sudo systemctl start v2raya.service
+	sudo systemctl enable v2raya.service
 }
 function Fn_InstallGC()
 {
@@ -390,7 +390,9 @@ function FN_SetAria2()
 function Fn_SetPython()
 {
 	ls /usr/bin/python*
-	echo " 采用 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.8  1077 类似安装"
+	echo "----命令例子"
+	echo "‘采用 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.8  1077 类似安装’"
+	echo “”
 	sudo update-alternatives --config python
 }
 

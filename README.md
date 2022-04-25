@@ -1,6 +1,9 @@
 # buntu Shell Bash 常用脚本 
 ## 主要说明
 Buntu 类OS脚本的收集整理
+## 2.4更新
+### 1.修正脚本V2raya安装脚本最新版本
+### 2.优化Python 安装提示
 ## 2.3更新
 ### 1.加入农历ccal
 ### 2.加入deepin wechat 安装
