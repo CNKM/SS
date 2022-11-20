@@ -44,7 +44,7 @@ function ShowTilte
 	echo -e "\033[32m*          git https://github.com/CNKM/SS                        *\033[0m"
 	echo -e "\033[32m*       邮箱地址：                                               *\033[0m"
 	echo -e "\033[32m*          km.liuz@qq.com                                        *\033[0m"
-	echo -e "\033[32m*       版本: V2.4                                             *\033[0m"
+	echo -e "\033[32m*       版本: V2.5                                             *\033[0m"
 	echo -e "\033[32m******************************************************************\033[0m"
 }
 
@@ -85,16 +85,19 @@ function Fn_InstallBase()
 }
 function Fn_InstallV2ray()
 {
-
-	curl -Ls https://mirrors.v2raya.org/go.sh | sudo bash
-	sudo systemctl disable v2ray --now
-	systemctl enable v2raya.service
-	wget -qO - https://apt.v2raya.mzz.pub/key/public-key.asc | sudo tee /etc/apt/trusted.gpg.d/v2raya.asc
-	echo "deb https://apt.v2raya.mzz.pub/ v2raya main" | sudo tee /etc/apt/sources.list.d/v2raya.list
-	sudo apt update
-	sudo apt install v2raya
-	sudo systemctl start v2raya.service
-	sudo systemctl enable v2raya.service
+   sudo apt-get install docker.io
+	sudo docker pull mzz2017/v2raya
+	# run v2raya
+	sudo docker run -d \
+  --restart=always \
+  --privileged \
+  --network=host \
+  --name v2raya \
+  -e V2RAYA_ADDRESS=0.0.0.0:2018 \
+  -v /lib/modules:/lib/modules:ro \
+  -v /etc/resolv.conf:/etc/resolv.conf \
+  -v /etc/v2raya:/etc/v2raya \
+  mzz2017/v2raya
 }
 function Fn_InstallGC()
 {
@@ -309,10 +312,32 @@ function Fn_SetAlias()
     	echo "alias dr='less -N '">> ~/.bashrc
     fi
 
-    N10=$(grep "alias dl" ~/.bashrc) 
+    N11=$(grep "alias dl" ~/.bashrc) 
 	if test -z "$N11" ;then
 		
     	echo "alias dl='aria2c -c -s 100 '">> ~/.bashrc
+    fi
+
+    N12=$(grep "alias dkls" ~/.bashrc) 
+	if test -z "$N12" ;then
+		
+    	echo "alias dkls='sudo docker container ls -a' ">> ~/.bashrc
+    fi
+
+     N13=$(grep "alias dkrm" ~/.bashrc) 
+	if test -z "$N13" ;then
+		
+    	echo "alias dkrm='sudo docker container rm '">> ~/.bashrc
+    fi
+      N14=$(grep "alias dkstart" ~/.bashrc) 
+	if test -z "$N14" ;then
+		
+    	echo "alias dkstart='sudo docker container start '">> ~/.bashrc
+    fi
+      N15=$(grep "alias dkstop" ~/.bashrc) 
+	if test -z "$N15" ;then
+		
+    	echo "alias dkstop='sudo docker container stop '">> ~/.bashrc
     fi
 
     Fn_RefashBaseSource
