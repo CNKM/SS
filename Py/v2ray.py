@@ -8,7 +8,8 @@ rootPath = os.path.split(curPath)[0]
 sys.path.append(rootPath)
 from pyDes import des, CBC, PAD_PKCS5 
 # 秘钥
-MyValue ="e580e38eb1dac625013a2f5c206edd51d2ba91cfc648bb7b4592b6d7112c69a584b363d2549c05e576ade0b3609983fe1d6719b8d073b3fd8900831badd3d17a7c831963beb1c34c012c01d4652cd5ca"
+MyValue="c32014cf234226d2cd1205dc6de8aaf88736ab3fc0a56b29b99c56c571f2ecc28b63b84de610b436764637bbd3b6f4ede58469cd5a19e11556832fa959a0b14c99edb1503b5fbad95de05db0c5a9c7fb44422ab432eb473da989134b7f2219e96742b8ca3154dc9f587dc7b50a092a8e8ab8a5fcab75da8173e96e478f61b6a0df3497cb5424e4f100c5a6d88fb32eb83682126e2d69ee8d"
+
 def des_encrypt(s):
     """
     DES 加密
