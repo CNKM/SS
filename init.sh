@@ -115,7 +115,7 @@ function Fn_InstallVsCode()
 	sudo add-apt-repository universe
 	sudo apt-get install apt-transport-https
 	sudo apt-get update
-	sudo apt-get install code dotnet-sdk-2.2  # or code-insiders
+	sudo apt-get install code dotnet-sdk-7.0 # or code-insiders
 }
 
 function Fn_InstallDonet()
@@ -125,7 +125,7 @@ function Fn_InstallDonet()
 	sudo add-apt-repository universe
 	sudo apt-get install apt-transport-https
 	sudo apt-get update
-	sudo apt-get install aspnetcore-runtime-2.2
+	sudo apt-get install dotnet-sdk-7.0
 }
 
 function Fn_InstallJDK()
