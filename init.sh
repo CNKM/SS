@@ -78,7 +78,7 @@ MenuItems=(
 "说明"
 "退出"
 )
-
+ 
 function Fn_InstallBase()
 {
 	sudo apt-get install git screenfetch neofetch uget cmatrix oneko aria2 htop guake  fortunes-zh network-manager-* numlockx build-essential libgtk2.0-dev  variety  xcompmgr  sublime-text libjpeg62
@@ -99,7 +99,7 @@ function Fn_InstallV2ray()
   -v /etc/v2raya:/etc/v2raya \
   mzz2017/v2raya
 }
-function Fn_InstallGC()cd 
+function Fn_InstallGC()
 {
 	sudo add-apt-repository ppa:danielrichter2007/grub-customizer
 	sudo apt-get update
