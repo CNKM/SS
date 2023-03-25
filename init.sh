@@ -99,7 +99,7 @@ function Fn_InstallV2ray()
   -v /etc/v2raya:/etc/v2raya \
   mzz2017/v2raya
 }
-function Fn_InstallGC()
+function Fn_InstallGC()cd 
 {
 	sudo add-apt-repository ppa:danielrichter2007/grub-customizer
 	sudo apt-get update
