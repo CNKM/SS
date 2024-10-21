@@ -40,7 +40,31 @@ function CompareFileHex {
     $sourceSize = $sourceStream.Length
     $compareSize = $compareStream.Length
     $differenceCount = 0
+  
 
+    $Block = "█"
+    $ProgressBarWidth = [Math]::Min([Console]::WindowWidth - 1, 50) # 使用控制台宽度或最大50个字符
+    
+    function Update-ProgressBar {
+        param (
+            [double]$PercentComplete
+        )
+        
+        $filledWidth = [math]::Round($ProgressBarWidth * ($PercentComplete / 100))
+        $progressBar = $Block * $filledWidth
+    
+        # 移动到第一行开始位置并更新进度文字
+        [Console]::SetCursorPosition(0, [Console]::CursorTop - 1)
+        Write-Host ("比较进度 {0:F2}%" -f $PercentComplete) -NoNewline
+    
+        # 移动到第二行开始位置并更新进度条
+        [Console]::SetCursorPosition(0, [Console]::CursorTop + 1)
+        Write-Host $progressBar.PadRight($ProgressBarWidth) -NoNewline -ForegroundColor Green
+    }
+    
+    # 为进度条预留
+    Write-Host "`n"
+  
     try {
         while ($position -lt $totalLength -and $differenceCount -lt $MaxDifferences) {
             $read1 = $sourceStream.Read($buffer1, 0, $BufferSize)
@@ -63,15 +87,17 @@ function CompareFileHex {
 
             $position += $maxRead
             $percentComplete = [math]::Round(($position / $totalLength) * 100, 2)
-            Write-Progress -Activity "比较文件" -Status "$percentComplete% 完成" -PercentComplete $percentComplete
+             # 更新进度条
+            Update-ProgressBar -PercentComplete $percentComplete
         }
     }
     finally {
         $sourceStream.Close()
         $compareStream.Close()
+        Write-Host "`n" # 添加一个空行
     }
 
-    Write-Progress -Activity "比较文件" -Completed
+    #Write-Progress -Activity "比较文件" -Completed
 
     $sourceSizeFormatted = Format-FileSize -Size $sourceSize
     $compareSizeFormatted = Format-FileSize -Size $compareSize
