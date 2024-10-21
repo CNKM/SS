@@ -66,8 +66,7 @@ function CompareFileHex {
     # 为进度条预留
     Write-Host "Code by:PeerLessSoul" -ForegroundColor Gray
     Write-Host " "
-    $lastUpdatePosition = 0
-    $updateInterval = [Math]::Max($totalLength / 100, $BufferSize) # 更新间隔为总长度的1%或一个缓冲区大小，取较大值
+    
     try {
         while ($position -lt $totalLength -and $differenceCount -lt $MaxDifferences) {
             $read1 = $sourceStream.Read($buffer1, 0, $BufferSize)
@@ -90,13 +89,11 @@ function CompareFileHex {
 
             $position += $maxRead
             $percentComplete = [math]::Round(($position / $totalLength) * 100, 2)
-             # 更新进度条
+             
             # 只在达到更新间隔时更新进度条
-            if (($position - $lastUpdatePosition) -ge $updateInterval) {
-                $percentComplete = [math]::Round(($position / $totalLength) * 100, 2)
-                Update-ProgressBar -PercentComplete $percentComplete
-                $lastUpdatePosition = $position
-            }
+            Update-ProgressBar -PercentComplete $percentComplete
+                
+            
         }
     }
     finally {
