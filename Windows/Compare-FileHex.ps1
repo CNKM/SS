@@ -10,6 +10,7 @@ function CompareFileHex {
         [int]$BufferSize = 1MB,
         [Parameter(Mandatory=$false)]
         [int]$MaxDifferences = 1000
+       
     )
 
     function Format-FileSize {
