@@ -1,3 +1,6 @@
+#Shell 脚本
+# Windows PowerShell
+## 1 加入两文件Hex比较脚本
 # buntu Shell Bash 常用脚本 
 ## 主要说明
 Buntu 类OS脚本的收集整理
@@ -29,5 +32,4 @@ Buntu 类OS脚本的收集整理
 ### 3.增加安装 v2ray 及 V2raya 
 ### 4.修正部分deb包直接采用官方源
 ### 5.分离Lubuntu基础软件优化设置
-### https://github.com/CNKM/SS
 ### ^_^
