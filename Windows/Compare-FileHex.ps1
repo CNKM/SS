@@ -60,12 +60,14 @@ function CompareFileHex {
     
         # 移动到第二行开始位置并更新进度条
         [Console]::SetCursorPosition(0, [Console]::CursorTop + 1)
-        Write-Host $progressBar.PadRight($ProgressBarWidth) -NoNewline -ForegroundColor Green
+        Write-Host $progressBar.PadRight($ProgressBarWidth) -NoNewline -ForegroundColor DarkGreen
     }
     
     # 为进度条预留
-    Write-Host "`n"
-  
+    Write-Host "Code by:PeerLessSoul" -ForegroundColor Gray
+    Write-Host " "
+    $lastUpdatePosition = 0
+    $updateInterval = [Math]::Max($totalLength / 100, $BufferSize) # 更新间隔为总长度的1%或一个缓冲区大小，取较大值
     try {
         while ($position -lt $totalLength -and $differenceCount -lt $MaxDifferences) {
             $read1 = $sourceStream.Read($buffer1, 0, $BufferSize)
@@ -89,13 +91,18 @@ function CompareFileHex {
             $position += $maxRead
             $percentComplete = [math]::Round(($position / $totalLength) * 100, 2)
              # 更新进度条
-            Update-ProgressBar -PercentComplete $percentComplete
+            # 只在达到更新间隔时更新进度条
+            if (($position - $lastUpdatePosition) -ge $updateInterval) {
+                $percentComplete = [math]::Round(($position / $totalLength) * 100, 2)
+                Update-ProgressBar -PercentComplete $percentComplete
+                $lastUpdatePosition = $position
+            }
         }
     }
     finally {
         $sourceStream.Close()
         $compareStream.Close()
-        Write-Host "`n" # 添加一个空行
+        Write-Host " " # 添加一个空行
     }
 
     #Write-Progress -Activity "比较文件" -Completed
@@ -125,14 +132,14 @@ function CompareFileHex {
 
 "@ 
 
-    $detailedOutput = "地址       源文件    比较文件`n"
-    $detailedOutput += "--------------------------`n"
+    $detailedOutput = "地址         源文件   比较文件`n"
+    $detailedOutput += "--------------------------------`n"
     $lastAddress = -1
     foreach ($result in $results) {
         if ($lastAddress -ne -1 -and $result.Address -ne $lastAddress + 1) {
             $detailedOutput += "`n"  # 添加空行表示不连续
         }
-        $detailedOutput += "0x{0:X8}  {1}        {2}`n" -f $result.Address, $result.SourceFile, $result.CompareFile
+        $detailedOutput += "0x{0:X8}   0x{1:X8}      0x{2:X8}`n" -f $result.Address, $result.SourceFile, $result.CompareFile
         $lastAddress = $result.Address
     }
 
